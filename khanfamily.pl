@@ -1,0 +1,97 @@
+%facts
+
+%Mianbiwi(Mian,biwi).
+mianbiwi('chotekhan','chotirani').
+mianbiwi('barrekhan','barrirani').
+mianbiwi('salim','kausar').
+mianbiwi('nadir','nahid').
+mianbiwi('asad','sumra').
+mianbiwi('rizwan','sanam').
+%parent(parent,child)
+parent('chotekhan','kausar').
+parent('chotekhan','nadir').
+parent('chotekhan','asad').
+parent('chotirani','kausar').
+parent('chotirani','nadir').
+parent('chotirani','asad').
+parent('barrekhan','nahid').
+parent('barrekhan','sumra').
+parent('barrirani','nahid').
+parent('barrirani','sumra').
+parent('salim','rizwan').
+parent('kausar','rizwan').
+parent('nadir','burhan').
+parent('nadir','rashid').
+parent('nadir','akram').
+parent('nahid','burhan').
+parent('nahid','rashid').
+parent('nahid','akram').
+parent('asad','salima').
+parent('asad','sanam').
+parent('sumra','salima').
+parent('sumra','sanam').
+parent('rizwan','rabia').
+parent('sanam','rabia').
+%gins(fact1,fact2).
+gins('male','chotekhan').
+gins('female','chotirani').
+gins('male','barrekhan').
+gins('female','barrirani').
+gins('male','salim').
+gins('female','kausar').
+gins('male','nadir').
+gins('male','asad').
+gins('female','nahid').
+gins('female','sumra').
+gins('male','rizwan').
+gins('male','burhan').
+gins('male','rashid').
+gins('male','akram').
+gins('female','salima').
+gins('female','sanam').
+gins('female','rabia').
+
+%Rules
+baap(A,B):-
+    parent(A,B),gins('male',A).
+beti(A,B):-
+    parent(A,B),gins('female',B).
+beta(A,B):-
+    parent(A,B),gins('male',B).
+dada(A,B):-
+    parent(A,X),parent(X,B),gins('male',X),gins('male',A).
+nana(A,B):-
+    parent(A,X),parent(X,B),gins('female',X),gins('male',A).
+dadi(A,B):-
+    parent(A,X),parent(X,B),gins('male',X),gins('female',A).
+nani(A,B):-
+    parent(A,X),parent(X,B),gins('female',A),gins('female',X).
+sala(A,B):-
+    mianbiwi(A,X),parent(P,X),parent(P,B),gins('male',B),gins('male',P).
+bahu(A,B):-
+    parent(A,X),mianbiwi(X,B).
+pota(A,B):-
+    parent(A,X),parent(X,B),gins('male',X),gins('male',B).
+nawasa(A,B):-
+    parent(A,X),parent(X,B),gins('female', X),gins('male',B).
+sussar(A,B):-
+    (parent(A,X),mianbiwi(B,X),gins('male',A));(parent(A,X),mianbiwi(X,B),gins('male',A)).
+chachataya(A,B):-
+  parent(X,A),
+  parent(X,C),
+  parent(C,B),
+  gins('male', X),
+  gins('male',A),
+  gins('male',C),
+  not(A=C).
+
+khala(A,B):-
+    parent(X,A),parent(X,M),parent(M,B),gins('female',A),gins('female',M),not(A=M).
+bahan(A,B):-
+    parent(X,A),parent(X,B),gins('female',A),gins('female',X),not(A=B).
+
+abaoAjdad(A,B):-
+    parent(A,B), gins('male',A).
+
+abaoAjdad(A,B):-
+    parent(A,X),abaoAjdad(X,B),gins('male',A).
